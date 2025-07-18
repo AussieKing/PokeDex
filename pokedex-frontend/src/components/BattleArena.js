@@ -8,6 +8,14 @@ const BattleArena = ({ pokemons }) => {
     const [isBattling, setIsBattling] = useState(false);
     const [countdown, setCountdown] = useState(3);
 
+    const showHitEffect = (el) => {
+        const burst = document.createElement("div");
+        burst.className = "hit-effect";
+        burst.textContent = "ðŸ’¥";
+        el.appendChild(burst);
+        setTimeout(() => burst.remove(), 500);
+    };
+
     useEffect(() => {
         if (countdown > 0 && isBattling) {
             const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
@@ -37,21 +45,15 @@ const BattleArena = ({ pokemons }) => {
 
         const battleInterval = setInterval(() => {
             if (Math.random() > 0.5) {
-                // Pokémon 1 attacks Pokémon 2
-                const attack = calculateAttack(pokemon1);
-                const block = calculateBlock(pokemon2);
-                const damage = Math.max(0, attack - block);
-                hp2 -= damage;
-                log.push(`${pokemon1.name} attacks ${pokemon2.name} for ${damage} damage.`);
-                const pokemon2Element = document.getElementById(`pokemon-${pokemon2.id}`);
-                if (pokemon2Element) {
+                    showHitEffect(pokemon2Element);
+                    showHitEffect(pokemon1Element);
                     pokemon2Element.classList.add('pokemon-shake');
                     setTimeout(() => {
                         pokemon2Element.classList.remove('pokemon-shake');
                     }, 500);
                 }
             } else {
-                // Pokémon 2 attacks Pokémon 1
+                // PokÃ©mon 2 attacks PokÃ©mon 1
                 const attack = calculateAttack(pokemon2);
                 const block = calculateBlock(pokemon1);
                 const damage = Math.max(0, attack - block);
