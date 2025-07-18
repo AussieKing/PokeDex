@@ -51,6 +51,7 @@ body {
     text-align: center;
     width: 220px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* allow hit effects to overlay */
 }
 
     .pokemon-card:hover {
